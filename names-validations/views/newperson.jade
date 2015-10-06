@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  div.container
+    h1= title
+    p Welcome to #{title}
+    if errors
+      div.row
+        div.alert.alert-default
+          ul
+          for error in errors
+            li #{error}
+    div.row
+      div.col-md-3
+        form(action="/people/new", method="POST")
+          div.form-group
+            label#name Name:
+            input(type="text", name="name", id="name", class="form-control", placeholder="Name?", value= name)
+          div.form-group
+            label#hobby Hobby:
+            input(type="text", name="hobby", id="hobby", class="form-control", placeholder="Hobby?", value= hobby)
+          button(type="submit").btn.btn-default Create person

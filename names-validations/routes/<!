@@ -1,0 +1,46 @@
+var express = require('express');
+var router = express.Router();
+var db = require('monk')('localhost/validpeople');
+var people = db.get('validpeople');
+// Remember all these routes are linked at /people/<route>
+// so
+/* GET /people */
+router.get('/', function(req, res, next){
+    //var peopleList = [{name: "some name", hobby: "some hobby"}];
+    people.find({}, function(err, peopleList) {
+      res.render('peoplelist', { peopleList: peopleList });
+    });
+});
+
+/* GET /people/new */
+router.get('/new', function(req, res, next) {
+  res.render('newperson', {title: 'Name holder', errors: null});
+});
+/*POST /people/new */
+router.post('/new', function(req, res, next) {
+  var errors = [];
+  if(req.body.name.trim().length == 0 || people.find({ name: req.body.name }), function(err, dbEntry){ return req.body.name == dbEntry.name }) {
+    errors.push("You must fill in unique a name");
+  }
+  if(req.body.hobby.trim().length ==0) {
+    errors.push("You must fill in a hobby");
+  }
+  res.render('newperson', {title: "Name Holder", errors: "You must "})
+    people.insert({
+      name: req.body.name,
+      hobby: req.body.hobby
+    }, function(err, response) {
+      if(err) {
+        res.render('newperson', {title: "Name holder", errors: err });
+      }
+      else {
+        res.redirect('/people');
+      }
+  });
+  //logic for attempting to insert a new person into the db
+  //if person exists in db, rerender newperson with errors
+  //if person doesn't exist in the db, redirect in successful insert
+});
+
+
+module.exports = router;

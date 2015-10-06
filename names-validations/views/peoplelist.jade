@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  div.container
+    div.row
+      div.h1 Showing People
+    div.row
+      div.col-md-6
+        table.table.table-striped
+          tr
+            th Name
+            th Hobby
+          for person in peopleList
+            tr
+              td #{person.name}
+              td #{person.hobby}
+
