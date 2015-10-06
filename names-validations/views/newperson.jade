@@ -2,16 +2,18 @@ extends layout
 
 block content
   div.container
-    h1= title
-    p Welcome to #{title}
-    if errors
-      div.row
-        div.alert.alert-default
-          ul
-          for error in errors
-            li #{error}
     div.row
-      div.col-md-3
+      div.col-md-4
+        h1= title
+        p Welcome to #{title}
+        if errors
+          div.row
+            div.alert.alert-danger
+              ul
+                for error in errors
+                  li #{error}
+    div.row
+      div.col-md-4
         form(action="/people/new", method="POST")
           div.form-group
             label#name Name:
