@@ -3,3 +3,11 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form
+    div.form-group
+      label#name Name:
+       input(type="text" class="form-control" id="name" placeholder="Name?")
+    div.form-group
+      label#hobby Hobby:
+       input(type="text" class="form-control" id="hobby" placeholder="Hobby?")
+    button(type="submit").btn.btn-default Create person
