@@ -19,7 +19,7 @@ router.get('/new', function(req, res, next) {
 
 /*POST /people/new */
 router.post('/new', function(req, res, next) {
-  var errors = [];
+  var errors = []; // for accumulating errors if there are any 
   if(req.body.name.trim().length == 0) {
     errors.push("You must fill in a name");
   }
